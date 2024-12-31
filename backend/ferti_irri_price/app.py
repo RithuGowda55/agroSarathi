@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify,render_template
+from flask import Flask, request, jsonify,render_template,make_response
 import requests
 import logging
 import joblib
@@ -12,6 +12,15 @@ from flask_pymongo import PyMongo
 import openai
 import aiohttp
 import asyncio
+
+
+##################################plant-disease-detection##################################
+import numpy as np
+from io import BytesIO
+from PIL import Image
+import tensorflow as tf
+
+
 # from labor_management.routes.labor_profile_routes import labor_profile_bp
 
 # Initialize PyMongo
@@ -21,7 +30,7 @@ from flask import Flask
 from flask_cors import CORS
 load_dotenv()
 
-#########################################################################################################################
+################################################fertilizer-irrigation-prices#########################################################################
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -42,19 +51,45 @@ api_version = "2024-08-01-preview"
 
 agro_api_key = "1a2e75d6964345653c6ca5b1fecf7799"
 
-# azure_api_key = os.getenv("AZURE_API_KEY")
 
-# azure_endpoint = "https://aasare-new.openai.azure.com/"
-# api_version = "2024-02-15-preview"
-
-# agro_api_key = "1a2e75d6964345653c6ca5b1fecf7799"
 
 mongo = PyMongo(app)
-
+###################################irrigation-model###################################################
 # Load the trained models
 water_model = joblib.load('water_requirement_model.pkl')  # Water requirement model from CSV 1
 irrigation_model = joblib.load('irrigation_model.pkl')    # Irrigation model from CSV 2
 
+####################################plant-disease-detection model#######################################
+MODEL = tf.keras.models.load_model("plantdisease.keras")
+
+CLASS_NAMES = [
+    'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust',
+    'Apple___healthy', 'Blueberry___healthy',
+    'Cherry_(including_sour)___Powdery_mildew', 'Cherry_(including_sour)___healthy',
+    'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot',
+    'Corn_(maize)___Common_rust_', 'Corn_(maize)___Northern_Leaf_Blight',
+    'Corn_(maize)___healthy', 'Grape___Black_rot',
+    'Grape___Esca_(Black_Measles)', 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)',
+    'Grape___healthy', 'Orange___Haunglongbing_(Citrus_greening)',
+    'Peach___Bacterial_spot', 'Peach___healthy',
+    'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy',
+    'Potato___Early_blight', 'Potato___Late_blight',
+    'Potato___healthy', 'Raspberry___healthy',
+    'Soybean___healthy', 'Squash___Powdery_mildew',
+    'Strawberry___Leaf_scorch', 'Strawberry___healthy',
+    'Tomato___Bacterial_spot', 'Tomato___Early_blight',
+    'Tomato___Late_blight', 'Tomato___Leaf_Mold',
+    'Tomato___Septoria_leaf_spot',
+    'Tomato___Spider_mites Two-spotted_spider_mite',
+    'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
+    'Tomato___Tomato_mosaic_virus', 'Tomato___healthy'
+]
+###################################################plant-disease-detection api#############################################
+load_dotenv()
+aep = "https://aasare-new.openai.azure.com/"
+apik = os.getenv("api_key")
+
+####################################################crop suggestion ################################
 def get_coordinates(region_name):
     try:
         response = requests.get(
@@ -276,7 +311,7 @@ def generate_maintenance_tips(weather_data, soil_data, crop_type):
         logging.error(f"Error generating maintenance tips with Azure OpenAI API: {e}")
         return None
 
-
+##################################################fertilizer-irrigation-prices####################################
 
 @app.route('/')
 def home():
@@ -562,6 +597,87 @@ def suggest_irrigation():
         return jsonify({"suggestion": response})
     else:
         return jsonify({"suggestion": "Unable to generate irrigation suggestion."})
+    
+    
+##############################################plant-disease-detection########################################
+
+def read_file_as_image(data) -> np.ndarray:
+    image = np.array(Image.open(BytesIO(data)))
+    return image
+    
+@app.route("/predict", methods=["POST"])
+def predictt():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file uploaded"}), 400
+    file = request.files['file']
+    image = read_file_as_image(file.read())
+    img_batch = np.expand_dims(image, 0)
+
+    predictions = MODEL.predict(img_batch)
+    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
+    confidence = np.max(predictions[0])
+
+    return jsonify({
+        'class': predicted_class,
+        'confidence': float(confidence)
+    })
+
+@app.route("/api/getResponse", methods=["POST"])
+def get_response():
+    if not apik:
+        return make_response(jsonify({"error": "apik not set"}), 500)
+    if not aep:
+        return make_response(jsonify({"error": "aep not set"}), 500)
+
+    question_data = request.get_json()
+    if not question_data or 'question' not in question_data:
+        return make_response(jsonify({"error": "Invalid input"}), 400)
+
+    question_text = question_data['question']
+    print("Received question:", question_text)
+
+    payload = {
+        "model": "aasare-new",
+        "messages": [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": question_text},
+        ],
+    }
+
+    try:
+        response = requests.post(
+            f"{aep}/openai/deployments/aasare-35/chat/completions?api-version=2024-02-15-preview",
+            json=payload,
+            headers={
+                "Content-Type": "application/json",
+                "api-key": apik,
+            },
+            timeout=30
+        )
+        response.raise_for_status()  # Raises error for bad responses (4xx, 5xx)
+
+        azure_response = response.json()
+        response_content = azure_response.get("choices", [])[0].get("message", {}).get("content", "")
+        if not response_content:
+            return make_response(jsonify({"error": "Invalid response from Azure OpenAI"}), 500)
+
+        print("Azure OpenAI response:", response_content)
+        return jsonify({"response": response_content})
+
+    except requests.exceptions.Timeout:
+        print("Connection timed out while attempting to reach Azure OpenAI.")
+        return make_response(jsonify({"error": "Connection timed out"}), 504)
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred while requesting: {str(e)}")
+        return make_response(jsonify({"error": f"Error contacting Azure OpenAI: {str(e)}"}), 500)
+
+    except Exception as e:
+        print(f"Unexpected error: {str(e)}")
+        return make_response(jsonify({"error": f"Unexpected error: {str(e)}"}), 500)
+
+
+ 
 
 if __name__ == '__main__':
     app.run(debug=True)
