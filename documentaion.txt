@@ -1,0 +1,63 @@
+-----Crop suggestion----- 
+
+    1. Open-Meteo for weather data
+        Hourly Weather Variables
+        -Temperature (2 m): Critical for understanding heat conditions.
+        -Relative Humidity (2 m): Affects plant transpiration and growth.
+        -Precipitation (rain + showers + snow): Indicates moisture availability.
+        -Sealevel Pressure: Useful for predicting weather changes.
+        -Cloud Cover Total: Impacts sunlight availability.
+        -Wind Speed (10 m): Can influence evaporation and physical damage.
+        -Soil Moisture (0-1 cm): Directly affects root-level water availability.
+
+        Daily Weather Variables
+        -Maximum Temperature (2 m): Useful for tracking heat stress.
+        -Minimum Temperature (2 m): Helps track potential frost events.
+        -Precipitation Sum: Provides an overall view of moisture conditions.
+        -Sunshine Duration: Impacts photosynthesis.
+        -UV Index: High levels can affect some plant species.
+        -Reference Evapotranspiration (ET₀): Useful for determining water requirements.
+
+        Current Weather
+        -Is Day or Night: Influences processes such as photosynthesis.
+        -Wind Speed (10 m): Assesses current wind conditions that might affect evaporation and crop stability.
+        -Cloud Cover Total: Real-time data impacts solar radiation.
+        
+        
+    2. Agro Monitoring - for soil data 
+        get the lat and long then generate the polygon id, then use it to get the soil data (Soil Properties:Calculation Time, Temperature(10 cm depth, K), Soil Moisture(m3/m3), Surface Temperature(K))
+
+
+-----Labor Management-----
+Input - 
+1. Manager Inputs:
+   - Account information (name, contact details, etc.).
+   - Labor requirements (number of laborers, work qualification, start and end dates).
+   - Job location and description.
+   - Rating and feedback for labor services post-completion.
+
+2. Labor Contractor Inputs:
+   - Account information (name, contact details, etc.).
+   - Details of available laborers (number, skills, qualifications).
+   - Geographic areas covered and availability schedule.
+   - Pricing or payment terms.
+   - Rating and feedback from completed jobs.
+
+3. System Inputs:
+   - Search criteria for finding labor (location, qualifications, availability).
+
+Output
+1. Manager Outputs:
+   - List of matching labor contractors with contact details.
+   - Booking confirmation and schedule details.
+   - Notifications/reminders for upcoming jobs.
+   - Invoice and payment confirmation.
+
+2. Labor Contractor Outputs:
+   - Job requests and booking details from managers.
+   - Ratings and feedback from managers.
+   - Payment receipts and transaction details.
+
+3. System Outputs:
+   - Recommendations or matches based on search criteria.
+   - Summary reports or analytics on labor usage and ratings.
