@@ -18,15 +18,19 @@ import Dashboard from "./components/Dashboard";
 // import ResponsePage from "./components/plantdiseasedetection/ResponsePage";
 // import Blogpost from "./components/blogpost/Blog";
 import Cropsuggest from "./components/Cropsuggest";
- 
+import Login from "./components/Login";
+import Register from "./components/Register";
+import { AuthProvider, useAuth } from './AuthContext';
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Router>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
           <Route path="/courses" element={<CourseHome />} />
           <Route path="/pricing" element={<Pricing />} />
@@ -45,7 +49,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 

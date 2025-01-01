@@ -1,5 +1,5 @@
 
-from flask import Flask, request, jsonify,render_template,make_response
+from flask import Flask, request, jsonify,render_template,make_response,session
 import requests
 import logging
 import joblib
@@ -12,6 +12,10 @@ from flask_pymongo import PyMongo
 import openai
 import aiohttp
 import asyncio
+import re
+from werkzeug.security import generate_password_hash, check_password_hash
+import logging
+from bson import ObjectId 
 
 
 ##################################plant-disease-detection##################################
@@ -37,6 +41,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 # app.register_blueprint(labor_profile_bp, url_prefix='/api')
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 api_keyy = os.getenv("api_key")
 azure_endpointt = "https://aasare-new.openai.azure.com/"
 api_versionn = "2024-02-15-preview"
@@ -56,11 +61,11 @@ agro_api_key = "1a2e75d6964345653c6ca5b1fecf7799"
 mongo = PyMongo(app)
 ###################################irrigation-model###################################################
 # Load the trained models
-water_model = joblib.load('water_requirement_model.pkl')  # Water requirement model from CSV 1
-irrigation_model = joblib.load('irrigation_model.pkl')    # Irrigation model from CSV 2
+water_model = joblib.load('./models/water_requirement_model.pkl')  # Water requirement model from CSV 1
+irrigation_model = joblib.load('./models/irrigation_model.pkl')    # Irrigation model from CSV 2
 
 ####################################plant-disease-detection model#######################################
-MODEL = tf.keras.models.load_model("plantdisease.keras")
+MODEL = tf.keras.models.load_model("./models/plantdisease.keras")
 
 CLASS_NAMES = [
     'Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust',
@@ -371,7 +376,7 @@ def process_data():
 @app.route('/predict-fertilizer', methods=['POST'])
 def predict_fertilizer():
     try:
-        model = joblib.load('fertilizer_model.pkl')
+        model = joblib.load('./models/fertilizer_model.pkl')
 
         # Get input data from the POST request (JSON format)
         data = request.json
@@ -427,9 +432,9 @@ def predict_fertilizer():
 def predict_irrigation():
     try:
         # Load the saved model, scaler, and column names
-        model = joblib.load('irrigation_logistic_model.joblib')
-        scaler = joblib.load('scaler.pkl')
-        model_columns = joblib.load('model_columns_irrigation.pkl')  # Load the saved column names
+        model = joblib.load('./models/irrigation_logistic_model.joblib')
+        scaler = joblib.load('./models/scaler.pkl')
+        model_columns = joblib.load('./models/model_columns_irrigation.pkl')  # Load the saved column names
 
         data = request.json
         print("Received irrigation data:", data)
@@ -469,8 +474,8 @@ def predict_irrigation():
 @app.route('/predict/water', methods=['POST'])
 def predict_water():
     try:
-        model = joblib.load('water_requirement_linear_model.joblib')
-        model_columns = joblib.load('model_columns_water.pkl')  # Assuming you saved columns during training
+        model = joblib.load('./models/water_requirement_linear_model.joblib')
+        model_columns = joblib.load('./models/model_columns_water.pkl')  # Assuming you saved columns during training
 
         data = request.json
 
@@ -508,9 +513,9 @@ def predict_water():
 
 @app.route('/predict/price', methods=['POST'])
 def predict():
-    model = joblib.load('price_predicted.pkl')
-    scaler = joblib.load('scaler_price.pkl')
-    model_columns = joblib.load('price_model_columns.pkl')
+    model = joblib.load('./models/price_predicted.pkl')
+    scaler = joblib.load('./models/scaler_price.pkl')
+    model_columns = joblib.load('./models/price_model_columns.pkl')
     # Get data from the request
     data = request.json
     
@@ -597,6 +602,77 @@ def suggest_irrigation():
         return jsonify({"suggestion": response})
     else:
         return jsonify({"suggestion": "Unable to generate irrigation suggestion."})
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    name=data.get('name')
+    username = data.get('username')
+    password = data.get('password')
+    email = data.get('email')
+    phone = data.get('phone')
+    dob = data.get('dob')
+    role = data.get('role')
+
+    if not all([username, password, role, email, phone, dob]):
+        return jsonify({"error": "All fields are required"}), 400
+
+    if role not in ["Farmer", "Labour","Manager"]:
+        return jsonify({"error": "Invalid role"}), 400
+
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        return jsonify({"error": "Invalid email format"}), 400
+
+    existing_user = mongo.db.users.find_one({"username": username})
+    if existing_user:
+        return jsonify({"error": "Username already exists"}), 400
+
+    hashed_password = generate_password_hash(password)
+    user_data = {
+        "name": name,
+        "username": username,
+        "password": hashed_password,
+        "role": role,
+        "email": email,
+        "phone": phone,
+        "dob": dob,
+    }
+    
+    mongo.db.users.insert_one(user_data)
+
+    return jsonify({"message": "User registered successfully"}), 201
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+
+    user = mongo.db.users.find_one({"username": username})
+    if not user or not check_password_hash(user["password"], password):
+        return jsonify({"error": "Invalid username or password"}), 400
+
+    session['username'] = username
+    session['role'] = user['role']
+
+    print(f"role {user['role']}")
+
+    return jsonify({
+        "message": f"Welcome, {username}!",
+        "username": username,
+        "role": user['role']
+    }), 200
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('username', None)
+    session.pop('role', None)
+    return jsonify({"message": "Logout successful"}), 200
     
     
 ##############################################plant-disease-detection########################################

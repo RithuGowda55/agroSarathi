@@ -295,3 +295,5 @@ cython_debug/
 backend/Agro-monitor-test.py
 backend/Open-Meteo-test.py
 backend/azure-api-test.py
+
+.codegpt
