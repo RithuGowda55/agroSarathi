@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./components/About";
 import CourseHome from "./components/CourseHome";
-import Pricing from "./components/Pricing";
+// import Pricing from "./components/Pricing";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
@@ -21,6 +21,8 @@ import Cropsuggest from "./components/Cropsuggest";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthProvider, useAuth } from './AuthContext';
+import Purchases from "./components/Purchases";
+import { Cancel,Success,Store } from "./components/CartContext";
 
 function App() {
   return (
@@ -33,7 +35,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
           <Route path="/courses" element={<CourseHome />} />
-          <Route path="/pricing" element={<Pricing />} />
+          {/* <Route path="/pricing" element={<Pricing />} /> */}
+          <Route path="/purchases" element={<Purchases />} />
           <Route path="/journal" element={<Blog />} />
           <Route path="/govscheme" element={<Govscheme />} />
           <Route path="/costpredict" element={<ProductionCostCalculator />} />
@@ -45,6 +48,9 @@ function App() {
           <Route path="/explore" element={<Dashboard />} />
           {/* <Route path="/response" element={<ResponsePage />} /> */}
           <Route path="/crop" element={<Cropsuggest />} />
+          <Route index element={<Store />} />
+          <Route path="success" element={<Success />} />
+          <Route path="cancel" element={<Cancel />} />
           {/* <Route path="/blogpost" element={<Blogpost />} /> */}
         </Routes>
         <Footer />
