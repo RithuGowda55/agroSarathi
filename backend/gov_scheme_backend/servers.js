@@ -10,21 +10,20 @@ const nodemailer = require("nodemailer");
 const schemeRoutes = require("./routes/schemes");
 const subscribeRoutes = require("./routes/subscribe");
 
+
 const app = express();
 
 // Middleware
 app.use(express.json());
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
-      "http://localhost:8090",
-      "http://localhost:3000",
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "*", // This allows requests from all domains
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   })
 );
+
 app.use(bodyParser.json());
 
 // Connect to MongoDB (Scheme Database)
@@ -59,7 +58,19 @@ newsletterConnection.on("error", (err) => {
   console.error("Newsletter database connection error:", err);
 });
 
-// Routes for the Scheme API
+// ###########################routes for blog######################################
+app.use("/uploads", express.static("uploads")); // To serve uploaded files
+
+// MongoDB connection
+mongoose.connect("mongodb+srv://druthigs2003:68KdK8ubdTu31uZl@cluster0.y8u9sgh.mongodb.net/scheme_agrosarathi", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.log(err));
+
+// Routes
+const postRoutes = require("./routes/posts");
+app.use("/api/posts", postRoutes);
+
+// ##############################Routes for the Scheme API########################
 app.use("/api", schemeRoutes);
 
 // Routes for the Subscribe API

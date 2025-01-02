@@ -10,6 +10,7 @@ import {
   Col,
 } from "react-bootstrap";
 import "../css/ProductCard.css";
+import Back from "./Back";
 
 // Define the products array with details of different plans
 const productsArray = [
@@ -317,7 +318,10 @@ function NavbarComponent() {
 }
 
 function Cancel() {
-  return <h1>Sorry to see you cancelled your Stripe payment!</h1>;
+  return (<>
+  <Back title='Payment Cancelled' />
+  <h1>Sorry to see you cancelled your Stripe payment!</h1>
+  </>);
 }
 
 function Store() {
@@ -338,7 +342,12 @@ function Store() {
 }
 
 function Success() {
-  return <h1>Thank you for your purchase!</h1>;
+  return (
+    <>
+    <Back title='Payment Sucessfull' />
+    <h1>Thank you for your purchase!</h1>
+    </>
+  );
 }
 
 export {

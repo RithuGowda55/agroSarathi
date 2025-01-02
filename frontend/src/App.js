@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import About from "./components/About";
 import CourseHome from "./components/CourseHome";
 // import Pricing from "./components/Pricing";
-import Blog from "./components/Blog";
+// import Blog from "./components/Blog";
+import Blog from "./components/Blogpage";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -15,6 +16,8 @@ import CropInputForm from "./components/CropInputForm";
 import Irrigation from "./components/Irrigation";
 import PricePrediction from "./components/Price";
 import Dashboard from "./components/Dashboard";
+import { Homepage,SinglePost,Write } from "./components/Blog";
+
 // import ResponsePage from "./components/plantdiseasedetection/ResponsePage";
 // import Blogpost from "./components/blogpost/Blog";
 import Cropsuggest from "./components/Cropsuggest";
@@ -37,7 +40,7 @@ function App() {
           <Route path="/courses" element={<CourseHome />} />
           {/* <Route path="/pricing" element={<Pricing />} /> */}
           <Route path="/purchases" element={<Purchases />} />
-          <Route path="/journal" element={<Blog />} />
+          <Route path="/home" element={<Blog />} /> {/* Routes to Blog Component */}
           <Route path="/govscheme" element={<Govscheme />} />
           <Route path="/costpredict" element={<ProductionCostCalculator />} />
           <Route path="/contact" element={<Contact />} />
@@ -51,6 +54,11 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="success" element={<Success />} />
           <Route path="cancel" element={<Cancel />} />
+          {/* <Route path="/" element={<Homepage />} /> */}
+        <Route path="/posts" element={<Homepage />} />
+        <Route path="/post/:id" element={<SinglePost />} />
+        <Route path="/write" element={<Write />} />
+        <Route path="/home" element={<Homepage />} />
           {/* <Route path="/blogpost" element={<Blogpost />} /> */}
         </Routes>
         <Footer />
