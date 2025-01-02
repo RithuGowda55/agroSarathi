@@ -48,7 +48,7 @@ function App() {
           <Route path="/explore" element={<Dashboard />} />
           {/* <Route path="/response" element={<ResponsePage />} /> */}
           <Route path="/crop" element={<Cropsuggest />} />
-          <Route index element={<Store />} />
+          <Route path="/store" element={<Store />} />
           <Route path="success" element={<Success />} />
           <Route path="cancel" element={<Cancel />} />
           {/* <Route path="/blogpost" element={<Blogpost />} /> */}
