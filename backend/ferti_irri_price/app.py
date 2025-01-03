@@ -485,6 +485,15 @@ def predict_irrigation():
         # Make prediction
         prediction = model.predict(new_data_scaled)
         prediction_result = 'Yes' if prediction[0] == 1 else 'No'
+        
+        feedback_file = '../data/irrigationprediction.csv'
+        feedback_df = pd.DataFrame([data])
+
+        # Check if the file exists
+        if not os.path.isfile(feedback_file):
+            feedback_df.to_csv(feedback_file, index=False)  # Write with headers if the file doesn't exist
+        else:
+            feedback_df.to_csv(feedback_file, mode='a', index=False, header=False) 
 
         
 
@@ -527,6 +536,14 @@ def predict_water():
         predicted_water_requirement = model.predict(new_data_encoded)
         value = round(predicted_water_requirement[0], 2)
         print(f"Predicted Water Requirement: {value}")
+        feedback_file = '../data/waterprediction.csv'
+        feedback_df = pd.DataFrame([data])
+
+        # Check if the file exists
+        if not os.path.isfile(feedback_file):
+            feedback_df.to_csv(feedback_file, index=False)  # Write with headers if the file doesn't exist
+        else:
+            feedback_df.to_csv(feedback_file, mode='a', index=False, header=False) 
         
         return jsonify({'predicted_water_requirement': value})
 
@@ -563,6 +580,15 @@ def predict():
         'Max_Price': prediction[0][1],
         'Modal_Price': prediction[0][2]
     }
+    feedback_file = '../data/priceprediction.csv'
+    feedback_df = pd.DataFrame([data])
+
+    # Check if the file exists
+    if not os.path.isfile(feedback_file):
+        feedback_df.to_csv(feedback_file, index=False)  # Write with headers if the file doesn't exist
+    else:
+        feedback_df.to_csv(feedback_file, mode='a', index=False, header=False) 
+
     return jsonify(result)
 
 async def get_irrigation_response(prompt):
