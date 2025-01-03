@@ -78,20 +78,20 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     // padding: theme.spacing(2),
-    margin: "auto",
+    margin: 0,
     maxWidth: 1500,
   },
   gridContainer: {
     justifyContent: "center",
-    padding: "4em 1em 0 1em",
+    padding: "3em 0em 0 0em",
   },
   mainContainer: {
     backgroundImage: `url(${image})`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    height: "250vh",
-    // marginTop: "8px",
+    height: "140vh",
+    // marginTop: "80px",
   },
   imageCard: {
     margin: "auto",

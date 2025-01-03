@@ -86,11 +86,22 @@ const CropInputForm = () => {
 
   return (
     <div className="containerr">
+
       <Back title="Fertilizer Prediction" />
       <button className="back-button" onClick={() => navigate('/explore')}>
         &#8592;
       </button>
+      <div className="form-header">
 
+      <div className="lists">
+        <ul className="range-list">
+          <li>Temperature: -10°C to 50°C</li>
+          <li>Moisture: 10% - 100%</li>
+          <li>Nitrogen: 0 - 50</li>
+          <li>Potassium: 0 - 50</li>
+          <li>Phosphorous: 0 - 50</li>
+        </ul>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="number"
@@ -149,6 +160,7 @@ const CropInputForm = () => {
         />
         <button type="submit" className="btn">Predict Fertilizer</button>
       </form>
+      </div>
 
       <button type="button" onClick={getNTPSuggestion} style={{display:'flex',flexDirection:'column',margin:'21px auto'}}>Get AI Suggestion</button>
       

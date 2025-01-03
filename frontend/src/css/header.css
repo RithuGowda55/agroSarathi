@@ -12,6 +12,7 @@
   font-weight: 600;
   font-style: normal;
   color: #fff
+
 }
 
 .logo span {
@@ -21,7 +22,8 @@
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  color: #fff
+  color: #fff;
+  padding-left: 17px;
 }
 
 .head .icon {
@@ -95,8 +97,8 @@ header ul li a:hover {
 
 .flexSB li {
   list-style: none; /* Remove bullets */
-  margin: 0 15px; /* Add spacing between list items */
-  font-size: 18px; /* Adjust font size */
+  margin: 0 10px; /* Add spacing between list items */
+  font-size: 20px; /* Adjust font size */
   text-transform: capitalize; /* Capitalize each word */
   font-family: "Libre Baskerville", serif;
   font-weight: 500;

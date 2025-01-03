@@ -95,13 +95,14 @@
   flex: 9;
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  justify-content: center; /* Center align posts */
+  margin: 20px 0; 
 }
 
 .sidebar {
   flex: 4 1;
   height: fit-content;
-  /* width: 600px; */
+  width: 100%;
   margin: 20px;
   padding-bottom: 30px;
   background-color: #fdfbfb;
@@ -144,6 +145,7 @@
 .sidebarList {
   list-style-type: none;
   margin-bottom: 30px;
+  padding-left: 200px;
 }
 
 .sidebarListItem {
@@ -299,6 +301,7 @@
 
 .home {
   display: flex;
+  flex-direction: column;
 }
 .single{
   display: flex;

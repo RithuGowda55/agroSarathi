@@ -1,3 +1,6 @@
+import m1 from "../src/css/m1.avif"
+import m2 from "../src/css/m2.avif"
+
 export const homeAbout = [
   {
     id: 1,
@@ -495,48 +498,49 @@ export const blog = [
 ];
 
 
+
 export const testimonal = [
   {
     id: 1,
     name: "RAMESH KUMAR",
     post: "FARMER FROM MAHARASHTRA",
     desc: "Modern farming techniques have completely transformed my approach to agriculture. By integrating weather forecasts and AI-driven crop recommendations, I saw a 30% increase in yield last season. This helped me make smarter decisions about irrigation, crop rotation, and pest control.",
-    cover: "./images/testo/farming_testimonial1.webp",
+    cover: m1,
   },
   {
     id: 2,
     name: "ANITA SHARMA",
     post: "FARMER FROM PUNJAB",
     desc: "With the help of technology, I was able to detect a pest infestation early in my crops using image-based analysis. It allowed me to take preventive measures before the damage became severe, saving my harvest and preventing significant losses.",
-    cover: "./images/testo/farming_testimonial2.webp",
+    cover: m2,
   },
   {
     id: 3,
     name: "VIJAY SINGH",
     post: "FARMER FROM UTTAR PRADESH",
     desc: "The power of market insights has been a game changer for me. By using technology to track current prices and predict future trends, I was able to sell my crops at the right time for the best profit, helping me improve my income significantly.",
-    cover: "./images/testo/farming_testimonial3.webp",
+    cover: m1,
   },
   {
     id: 4,
     name: "RAJESH PATEL",
     post: "FARMER FROM GUJARAT",
     desc: "Modern irrigation practices, such as smart water management systems, have helped me conserve water while ensuring that my crops receive the right amount of hydration. These practices have reduced my water usage by 40%, leading to lower costs and more sustainable farming.",
-    cover: "./images/testo/farming_testimonial4.webp",
+    cover: m1,
   },
   {
     id: 5,
     name: "PRIYA DEVI",
     post: "FARMER FROM BIHAR",
     desc: "Thanks to the integration of government scheme updates through mobile platforms, I was able to access subsidies for organic farming tools and technology. This allowed me to switch to sustainable farming practices, which not only helped my crops but also improved my soil health.",
-    cover: "./images/testo/farming_testimonial5.webp",
+    cover: m2,
   },
   {
     id: 6,
     name: "KAILASH YADAV",
     post: "FARMER FROM RAJASTHAN",
     desc: "The shift to precision farming with data-driven insights has greatly improved my productivity. Using soil health sensors and fertilizer recommendations tailored to my crops, I was able to reduce fertilizer costs by 25% while improving crop quality. This has made my farming both more profitable and environmentally friendly.",
-    cover: "./images/testo/farming_testimonial6.webp",
+    cover: m1,
   },  
 ];
 

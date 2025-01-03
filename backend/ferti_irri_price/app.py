@@ -694,7 +694,7 @@ def suggest_ntp():
     - Crop Type: {input_params['cropType']}
     - Fertilizer Prediction: {ntp_output}
 
-    Suggest the best nutrient management strategy for the given crop and soil conditions.
+    Suggest the best nutrient management strategy for the given crop and soil conditions also try finding the fertiliser name with the output given.
     """
     print("Generated prompt:", prompt)
 

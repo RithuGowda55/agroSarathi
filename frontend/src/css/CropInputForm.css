@@ -9,6 +9,26 @@
     font-size: 2.5rem;
     text-align: center;
   } */
+
+  .range-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Space between items */
+    padding: 0;
+    list-style-type: none;
+    margin: 10px 0;
+  }
+  
+  .range-list li {
+    font-size: 16px;
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
   
   form {
     background-color: #fff;
@@ -38,6 +58,22 @@
     border-color: #1eb2a6;
     outline: none;
   }
+
+  form select{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+  form select:focus {
+    border-color: #1eb2a6;
+    outline: none;
+  }
+
   
   btn {
     background-color: #1eb2a6;

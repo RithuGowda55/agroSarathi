@@ -52,7 +52,7 @@ function MainContent() {
         <Route path="/" element={<Landingpage />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Blog />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/register" element={<Register />} />
         <Route path="/courses" element={<CourseHome />} />
         <Route path="/about" element={<About />} />

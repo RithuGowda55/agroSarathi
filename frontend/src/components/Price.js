@@ -40,11 +40,18 @@ function PricePrediction() {
         <>
             <Back title='Price Prediction' />
             <div style={{ margin: "20px" }}>
+            <div className="lists" style={{ marginBottom: '15px' ,marginTop: '20px'}}>
+                <ul className="range-list">
+                    <li>Commodity : Product you want to buy</li>
+                    <li>Variety : variation of your commodity</li>
+                    <li>Grade : Quality (A,B,C or FAQ)</li>
+                </ul>
+                </div>
                 <button className="back-button" onClick={() => navigate('/explore')} style={{ fontSize: '20px', padding: '10px' }}>
                     &#8592;
                 </button>
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <form onSubmit={handleSubmit} style={{display: 'flex', 'flex-direction': 'column',gap: '1rem','margin-top': '100px','flex wrap': 'wrap','align content': 'stretch','align-items': 'stretch','justify-content': 'space-around' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <label style={{ flex: 1 }}>State:</label>
                         <input
@@ -125,7 +132,7 @@ function PricePrediction() {
                             alignSelf: 'center'
                         }}
                     >
-                        Predict
+                        Get Price
                     </button>
                 </form>
 

@@ -207,48 +207,41 @@ function ProductCard(props) {
   const productQuantity = cart.getProductQuantity(product.id);
 
   return (
-    <>
-      <div className="cont">
-        <div className="product-card">
-          <h4>{product.title}</h4>
-          <h1>
-            <span>₹</span>
-            {product.price}
-          </h1>
-          <p>{product.desc}</p>
-          {productQuantity > 0 ? (
-            <>
-              <div className="cart-controls">
-                <label>In Cart: {productQuantity}</label>
-                <div className="quantity-buttons">
-                  <button onClick={() => cart.addOneToCart(product.id)}>
-                    +
-                  </button>
-                  <button onClick={() => cart.removeOneFromCart(product.id)}>
-                    -
-                  </button>
-                </div>
-              </div>
-              <button
-                className="remove-btn"
-                onClick={() => cart.deleteFromCart(product.id)}
-              >
-                Remove from cart
-              </button>
-            </>
-          ) : (
-            <button
-              className="add-to-cart-btn"
-              onClick={() => cart.addOneToCart(product.id)}
-            >
-              Add To Cart
-            </button>
-          )}
-        </div>
-      </div>
-    </>
+    <div className="product-card">
+      <h4>{product.title}</h4>
+      <h1>
+        <span>₹</span>
+        {product.price}
+      </h1>
+      <p>{product.desc}</p>
+      {productQuantity > 0 ? (
+        <>
+          <div className="cart-controls">
+            <label>In Cart: {productQuantity}</label>
+            <div className="quantity-buttons">
+              <button onClick={() => cart.addOneToCart(product.id)}>+</button>
+              <button onClick={() => cart.removeOneFromCart(product.id)}>-</button>
+            </div>
+          </div>
+          <button
+            className="remove-btn"
+            onClick={() => cart.deleteFromCart(product.id)}
+          >
+            Remove from cart
+          </button>
+        </>
+      ) : (
+        <button
+          className="add-to-cart-btn"
+          onClick={() => cart.addOneToCart(product.id)}
+        >
+          Add To Cart
+        </button>
+      )}
+    </div>
   );
 }
+
 
 // CartProduct component
 function CartProduct(props) {
@@ -302,40 +295,44 @@ function NavbarComponent() {
   );
 
   return (
-    <>
-    <h1 align="center" className="p-3">
-        Buy Commodities
-      </h1>
-      <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
+<>
+  <h1 align="center" className="p-3">Buy Commodities</h1>
+  <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Shopping Cart</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {productsCount > 0 ? (
-            <>
-              <p>Items in your cart:</p>
-              {cart.items.map((currentProduct, idx) => (
-                <CartProduct
-                  key={idx}
-                  id={currentProduct.id}
-                  quantity={currentProduct.quantity}
-                ></CartProduct>
-              ))}
+  <Modal show={show} onHide={handleClose}>
+    <Modal.Header closeButton>
+      <Modal.Title>Shopping Cart</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      {productsCount > 0 ? (
+        <>
+          <p>Items in your cart:</p>
+          {cart.items.map((currentProduct, idx) => (
+            <CartProduct
+              key={idx}
+              id={currentProduct.id}
+              quantity={currentProduct.quantity}
+            />
+          ))}
+          <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
+          <Button variant="success" onClick={checkout}>
+            Purchase items!
+          </Button>
+        </>
+      ) : (
+        <h1>There are no items in your cart!</h1>
+      )}
+    </Modal.Body>
+  </Modal>
 
-              <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
+  {/* Wrap all ProductCard components inside this div */}
+  {/* <div className="cont">
+    {products.map((product, idx) => (
+      <ProductCard key={idx} product={product} />
+    ))}
+  </div> */}
+</>
 
-              <Button variant="success" onClick={checkout}>
-                Purchase items!
-              </Button>
-            </>
-          ) : (
-            <h1>There are no items in your cart!</h1>
-          )}
-        </Modal.Body>
-      </Modal>
-    </>
   );
 }
 
@@ -348,10 +345,7 @@ function Cancel() {
 
 function Store() {
   return (
-    <>
-      {/* <h1 align="center" className="p-3">
-        Buy Commodities
-      </h1> */}
+    <Container> {/* Add the Container here */}
       <Row xs={1} md={3} className="g-4">
         {productsArray.map((product, idx) => (
           <Col align="center" key={idx}>
@@ -359,9 +353,10 @@ function Store() {
           </Col>
         ))}
       </Row>
-    </>
+    </Container>
   );
 }
+
 
 function Success() {
   return (

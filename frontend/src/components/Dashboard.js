@@ -34,6 +34,14 @@ const Dashboard = () => {
               </div>
             </Link>
           </div>
+          <div className="cardd">
+            <Link to="/pdd" className="cardd-link">
+              <div className="cardd-content">
+                <h2>Plant Disease</h2>
+                <p>Detect Plant Diseases and analyze them.</p>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </>

@@ -34,10 +34,7 @@ const Header = () => {
               <Link to='/courses'>Resources</Link>
             </li>
             <li>
-              <Link to='/purchases'>Purchases</Link>
-            </li>
-            <li>
-              <Link to='/home'>Blog</Link>
+              <Link to='/crop'>Crop Suggest</Link>
             </li>
             <li>
               <Link to='/govscheme'>GovScheme</Link>
@@ -46,16 +43,13 @@ const Header = () => {
               <Link to='/costpredict'>CostPredict</Link>
             </li>
             <li>
-              <Link to='/contact'>Contact</Link>
-            </li>
-            <li>
-              <Link to='/pdd'>Plant Disease Detector</Link>
-            </li>
-            <li>
               <Link to='/explore'>Explore</Link>
             </li>
             <li>
-              <Link to='/crop'>Crop Suggest</Link>
+              <Link to='/blog'>Blog</Link>
+            </li>
+            <li>
+              <Link to='/contact'>Contact</Link>
             </li>
           </ul>
           <div className="start">

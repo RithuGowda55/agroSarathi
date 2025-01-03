@@ -231,7 +231,7 @@ function Topbar() {
   return (
     <div style={styles.top}>
       {/* Social Media Icons */}
-      <div style={styles.topLeft}>
+      {/* <div style={styles.topLeft}>
         <a
           href="https://www.facebook.com/ModernFarmerMagazine"
           target="_blank"
@@ -260,7 +260,7 @@ function Topbar() {
         >
           <i className="fab fa-twitter-square" style={styles.topIcon}></i>
         </a>
-      </div>
+      </div> */}
 
       {/* Navigation Links */}
       <div style={styles.topCenter}>
@@ -615,21 +615,21 @@ function Single() {
 
 export default Single;
 
-function Header() {
-  return (
-    <div className="header">
-      <div className="headerTitles">
-      <span className="headerTitleSm">Modern Farming & Technology</span>
-      <span className="headerTitleLg">BLOG</span>
-      </div>
-      <img
-        className="headerImg"
-        src="https://images.pexels.com/photos/1167355/pexels-photo-1167355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-        alt=""
-      />
-    </div>
-  );
-}
+// function Header() {
+//   return (
+//     <div className="header">
+//       <div className="headerTitles">
+//       <span className="headerTitleSm">Modern Farming & Technology</span>
+//       <span className="headerTitleLg">BLOG</span>
+//       </div>
+//       <img
+//         className="headerImg"
+//         src="https://images.pexels.com/photos/1167355/pexels-photo-1167355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+//         alt=""
+//       />
+//     </div>
+//   );
+// }
 
 function Post({ post }) {
   return (
@@ -668,7 +668,7 @@ function Homepage() {
     <>
     <Back title='User Stories' />
     <Topbar />
-      <Header />
+      {/* <Header /> */}
       <div className="home">
         <Posts />
         <Sidebar />
@@ -677,4 +677,4 @@ function Homepage() {
   );
 }
 
-export { Homepage, Single, Write, Header, Post, Posts, Sidebar, Topbar,SinglePost };
+export { Homepage, Single, Write, Post, Posts, Sidebar, Topbar,SinglePost };
