@@ -3,6 +3,7 @@ import axios from 'axios';
 import Hero from './Hero';
 import Back from './Back';
 import { useNavigate } from 'react-router-dom';
+import Purchases from './Purchases';
 
 function PricePrediction() {
     const [formData, setFormData] = useState({
@@ -129,6 +130,7 @@ function PricePrediction() {
                 </form>
 
                 {prediction && (
+                    <>
                     <div style={{
                         backgroundColor: '#f4f4f4',
                         padding: '20px',
@@ -149,7 +151,12 @@ function PricePrediction() {
                             <strong>Avg Price: </strong><span>{prediction.Modal_Price} per Quintol</span>
                         </div>
                     </div>
+                    </>
                 )}
+                <div>
+                    <Purchases />
+                </div>
+
             </div>
         </>
     );

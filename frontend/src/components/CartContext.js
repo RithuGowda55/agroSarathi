@@ -15,28 +15,47 @@ import Back from "./Back";
 // Define the products array with details of different plans
 const productsArray = [
   {
-    id: "price_1QcQ63RosPL8EM1Rl0yiZgIe",
-    title: "BASIC PLAN",
-    price: 1999,
-    desc: "Access to weather updates and basic crop recommendations.",
+    id: "price_1QdB1WRosPL8EM1RliY5Hded",
+    title: "Rice",
+    price: 4950,
+    desc: "Grade A",
   },
   {
-    id: "price_1QcQ77RosPL8EM1Rj5sJ32sm",
-    title: "STANDARD PLAN",
-    price: 3999,
-    desc: "Includes pest detection, soil health analysis, and detailed crop management tips.",
+    id: "price_1QdB2GRosPL8EM1Rr66MowNt",
+    title: "Rice",
+    price: 3800,
+    desc: "Grade B",
   },
   {
-    id: "price_1QcQ7iRosPL8EM1R14BkopTM",
-    title: "PREMIUM PLAN",
-    price: 5999,
-    desc: "Complete access to all features, including market trends and government scheme alerts.",
+    id: "price_1QdB3ZRosPL8EM1R2HdYcTVN",
+    title: "Wheat",
+    price: 3850,
+    desc: "Grade A",
   },
   {
-    id: "price_1QcQ8BRosPL8EM1R9dfWSilO",
-    title: "ULTIMATE PLAN",
-    price: 9999,
-    desc: "Full suite of services, personalized recommendations, and one-on-one expert consultations.",
+    id: "price_1QdB4rRosPL8EM1RE32LGJqy",
+    title: "Onion",
+    price: 4400,
+    desc: "Grade A",
+  },
+  {
+    id: "price_1QdB6cRosPL8EM1RMm9phF7t",
+    title: "Onion",
+    price: 1000,
+    desc: "Grade B",
+  },
+  
+  {
+    id: "price_1QdBAZRosPL8EM1R1NUXxUrf",
+    title: "Potatoes",
+    price: 5200,
+    desc: "Grade A",
+  },
+  {
+    id: "price_1QdBBvRosPL8EM1RZ87oHjxJ",
+    title: "Potatoes",
+    price: 1974,
+    desc: "Grade B",
   },
 ];
 
@@ -284,6 +303,9 @@ function NavbarComponent() {
 
   return (
     <>
+    <h1 align="center" className="p-3">
+        Buy Commodities
+      </h1>
       <Button onClick={handleShow}>Cart ({productsCount} Items)</Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -327,9 +349,9 @@ function Cancel() {
 function Store() {
   return (
     <>
-      <h1 align="center" className="p-3">
-        Welcome to the store!
-      </h1>
+      {/* <h1 align="center" className="p-3">
+        Buy Commodities
+      </h1> */}
       <Row xs={1} md={3} className="g-4">
         {productsArray.map((product, idx) => (
           <Col align="center" key={idx}>

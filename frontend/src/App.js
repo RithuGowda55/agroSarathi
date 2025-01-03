@@ -21,6 +21,10 @@ import Purchases from "./components/Purchases";
 import { Cancel, Success, Store } from "./components/CartContext";
 import CourseHome from "./components/CourseHome";
 import Blog from "./components/Blogpage";
+import { Homepage } from "./components/Blog";
+import { SinglePost,Write } from "./components/Blog";
+
+
 
 function App() {
   return (
@@ -65,6 +69,10 @@ function MainContent() {
         <Route path="/store" element={<Store />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
+        <Route path="/posts" element={<Homepage />} />
+        <Route path="/post/:id" element={<SinglePost />} />
+        <Route path="/write" element={<Write />} />
+        <Route path="/home" element={<Homepage />} />
       </Routes>
       {showHeaderFooter && <Footer />}
     </>

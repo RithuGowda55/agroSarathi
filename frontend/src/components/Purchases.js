@@ -23,13 +23,13 @@ function Purchases() {
   // }, []);
   return (
     <>
-      <Back title="Subscription Plans" />
+      {/* <Back title="Subscription Plans" /> */}
 
       <CartProvider>
         {/* <Container> */}
-          <NavbarComponent />
 
           {/* </NavbarComponent> */}
+          <NavbarComponent />
           <Store />
           {/* <BrowserRouter>
             <Routes>
