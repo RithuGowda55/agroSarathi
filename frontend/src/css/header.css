@@ -1,20 +1,37 @@
 /*--------head------------*/
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,600;1,600&family=Libre+Baskerville&display=swap');
 .head {
   padding: 20px 0;
   color: #fff;
 }
 .logo h1 {
   font-size: 35px;
-  font-weight: 900;
+  /* font-weight: 900; */
+  font-family: "Josefin Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #fff
 }
+
+.logo span {
+  font-size: 20px;
+  /* font-weight: 900; */
+  font-family: "Josefin Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #fff
+}
+
 .head .icon {
   margin-left: 10px;
 }
 /*--------head------------*/
 /*--------header------------*/
 header {
-  background-color: rgba(255, 255, 255, 0.2);
-  margin: 40px 30px;
+  background-color: rgba(203, 190, 190, 0.2);
+  margin: 50px 30px 0 30px;
 }
 header .nav {
   display: flex !important;
@@ -75,3 +92,25 @@ header ul li a:hover {
     background-color: #1eb2a6;
   }
 }
+
+.flexSB li {
+  list-style: none; /* Remove bullets */
+  margin: 0 15px; /* Add spacing between list items */
+  font-size: 18px; /* Adjust font size */
+  text-transform: capitalize; /* Capitalize each word */
+  font-family: "Libre Baskerville", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.flexSB li a {
+  text-decoration: none; /* Remove underline */
+  color: #333; /* Set a pleasant text color */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.flexSB li a:hover {
+  color: #fff; /* Change text color on hover (blue in this case) */
+  font-weight: 600; /* Slightly bolden the text on hover */
+}
+

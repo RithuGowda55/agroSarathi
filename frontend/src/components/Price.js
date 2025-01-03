@@ -140,13 +140,13 @@ function PricePrediction() {
                     }}>
                         <h3 style={{ color: '#1eb2a6', textAlign: 'center' }}>Predicted Prices:</h3>
                         <div style={{ marginBottom: '10px' }}>
-                            <strong>Min Price: </strong><span>{prediction.Min_Price}</span>
+                            <strong>Min Price: </strong><span>{prediction.Min_Price} per Quintol</span>
                         </div>
                         <div style={{ marginBottom: '10px' }}>
-                            <strong>Max Price: </strong><span>{prediction.Max_Price}</span>
+                            <strong>Max Price: </strong><span>{prediction.Max_Price} per Quintol</span>
                         </div>
                         <div style={{ marginBottom: '10px' }}>
-                            <strong>Modal Price: </strong><span>{prediction.Modal_Price}</span>
+                            <strong>Avg Price: </strong><span>{prediction.Modal_Price} per Quintol</span>
                         </div>
                     </div>
                 )}

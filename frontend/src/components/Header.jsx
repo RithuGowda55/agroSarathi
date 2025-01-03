@@ -33,19 +33,14 @@ const Header = () => {
             <li>
               <Link to='/courses'>Resources</Link>
             </li>
-            {/* <li>
-              <Link to='/about'>About</Link>
-            </li> */}
-            {/* <li>
-              <Link to='/team'>Team</Link>
-            </li> */}
             <li>
               <Link to='/purchases'>Purchases</Link>
             </li>
             <li>
-                   
               <Link to='/home'>Blog</Link>
- <Link to='/govscheme'>GovScheme</Link>
+            </li>
+            <li>
+              <Link to='/govscheme'>GovScheme</Link>
             </li>
             <li>
               <Link to='/costpredict'>CostPredict</Link>
@@ -62,9 +57,6 @@ const Header = () => {
             <li>
               <Link to='/crop'>Crop Suggest</Link>
             </li>
-            {/* <li>
-              <Link to='/blogpost'>BlogPost</Link>
-            </li> */}
           </ul>
           <div className="start">
             <div className="button">

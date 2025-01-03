@@ -245,7 +245,7 @@ const Irrigation = () => {
         >
           <h3 style={{ fontSize: '20px', color: '#4CAF50' }}>Water Requirement Prediction</h3>
           <p style={{ fontSize: '16px', color: '#333' }}>
-            {waterPrediction} mm
+            {waterPrediction} litre/acre
           </p>
         </div>
       )}
