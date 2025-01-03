@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Back from './Back';
 
 const Irrigation = () => {
-  // State to store input data for both models
   const [irrigationData, setIrrigationData] = useState({
     CropType: '',
     CropDays: '',
     SoilMoisture: '',
     temperature: '',
-    Humidity: ''
+    Humidity: '',
   });
 
   const [waterData, setWaterData] = useState({
@@ -18,20 +17,22 @@ const Irrigation = () => {
     'SOIL TYPE': '',
     'REGION': '',
     'TEMPERATURE': '',
-    'WEATHER CONDITION': ''
+    'WEATHER CONDITION': '',
   });
-  const navigate = useNavigate();
 
   const [irrigationPrediction, setIrrigationPrediction] = useState(null);
   const [waterPrediction, setWaterPrediction] = useState(null);
   const [aisuggestion, setAISuggestion] = useState(null);
+  const [error, setError] = useState(''); // New state for error messages
+
+  const navigate = useNavigate();
 
   // Handle input change for irrigation data
   const handleIrrigationInputChange = (e) => {
     const { name, value } = e.target;
     setIrrigationData({
       ...irrigationData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -40,17 +41,40 @@ const Irrigation = () => {
     const { name, value } = e.target;
     setWaterData({
       ...waterData,
-      [name]: value
+      [name]: value,
     });
+  };
+
+  const validateInput = () => {
+    const { temperature, SoilMoisture, Humidity } = irrigationData;
+
+    if (temperature < 10 || temperature > 50) {
+      return 'Temperature must be between 10°C and 50°C.';
+    }
+    if (SoilMoisture < 10 || SoilMoisture > 100) {
+      return 'Soil Moisture must be between 10% and 100%.';
+    }
+    if (Humidity < 0 || Humidity > 100) {
+      return 'Humidity must be between 0% and 100%.';
+    }
+
+    return ''; // No errors
   };
 
   // Function to handle irrigation prediction
   const predictIrrigation = async () => {
+    const validationError = validateInput();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+    setError(''); // Clear previous errors
+
     try {
       const response = await axios.post('http://localhost:5000/predict/irrigation', irrigationData);
       setIrrigationPrediction(response.data.prediction);
     } catch (error) {
-      console.error("Error predicting irrigation:", error);
+      console.error('Error predicting irrigation:', error);
     }
   };
 
@@ -58,33 +82,39 @@ const Irrigation = () => {
   const predictWater = async () => {
     try {
       const response = await axios.post('http://localhost:5000/predict/water', waterData);
-      setWaterPrediction(response.data.predicted_water_requirement); // Updated key
+      setWaterPrediction(response.data.predicted_water_requirement);
     } catch (error) {
-      console.error("Error predicting water requirement:", error);
+      console.error('Error predicting water requirement:', error);
     }
   };
-  
+
   const getIrrigationSuggestion = async () => {
     try {
       const response = await axios.post('http://localhost:5000/suggest/irrigation', {
         inputs: irrigationData,
         irrigation_output: irrigationPrediction,
-        water_output: waterPrediction
+        water_output: waterPrediction,
       });
       setAISuggestion(response.data.suggestion);
     } catch (error) {
-      console.error("Error getting irrigation suggestion:", error);
+      console.error('Error getting irrigation suggestion:', error);
     }
   };
 
   return (
-    <div className="Appp" style={{ margin: "20px" }}>
+    <div className="Appp" style={{ margin: '20px' }}>
       <button className="back-button" onClick={() => navigate('/explore')}>
         &#8592;
       </button>
-      <Back title='Prediction Tool' />
+      <Back title="Prediction Tool" />
 
-      {/* Irrigation Prediction Form */}
+      {error && (
+        <div style={{ color: 'red', textAlign: 'center', marginBottom: '10px' }}>
+          {error}
+        </div>
+      )}
+
+      {/* Remaining code */}
       <h2 style={{ color: '#1eb2a6', fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}>Irrigation Prediction</h2>
       <form>
         <input
@@ -97,6 +127,8 @@ const Irrigation = () => {
         <input
           type="number"
           name="CropDays"
+          min="1"
+          max="365"
           value={irrigationData.CropDays}
           onChange={handleIrrigationInputChange}
           placeholder="Crop Days"
@@ -104,6 +136,8 @@ const Irrigation = () => {
         <input
           type="number"
           name="SoilMoisture"
+          min="0"
+          max="100"
           value={irrigationData.SoilMoisture}
           onChange={handleIrrigationInputChange}
           placeholder="Soil Moisture"
@@ -111,6 +145,8 @@ const Irrigation = () => {
         <input
           type="number"
           name="temperature"
+          min="0"
+          max="50"
           value={irrigationData.temperature}
           onChange={handleIrrigationInputChange}
           placeholder="Temperature"
@@ -118,6 +154,8 @@ const Irrigation = () => {
         <input
           type="number"
           name="Humidity"
+          min="0"
+          max="100"
           value={irrigationData.Humidity}
           onChange={handleIrrigationInputChange}
           placeholder="Humidity"
@@ -235,7 +273,6 @@ const Irrigation = () => {
           </p>
         </div>
       )}
-
     </div>
   );
 };

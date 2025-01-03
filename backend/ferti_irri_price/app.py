@@ -18,6 +18,7 @@ import logging
 from bson import ObjectId 
 
 
+
 ##################################plant-disease-detection##################################
 import numpy as np
 from io import BytesIO
@@ -45,6 +46,7 @@ app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 api_keyy = os.getenv("api_key")
 azure_endpointt = "https://aasare-new.openai.azure.com/"
 api_versionn = "2024-02-15-preview"
+
 
 ################################################crop suggestion###########################################################
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -422,10 +424,24 @@ def predict_fertilizer():
         # Make the prediction
         prediction = model.predict(df)
 
+        # Add the prediction to the original input data
+        data['predicted_fertilizer'] = prediction[0]
+
+        # Append the data (with prediction) to a CSV file
+        feedback_file = '../data/fertilizer_prediction_20250102-232840.csv'
+        feedback_df = pd.DataFrame([data])
+
+        # Check if the file exists
+        if not os.path.isfile(feedback_file):
+            feedback_df.to_csv(feedback_file, index=False)  # Write with headers if the file doesn't exist
+        else:
+            feedback_df.to_csv(feedback_file, mode='a', index=False, header=False)  # Append without headers
+
         # Return the predicted fertilizer name
         return jsonify({'fertilizer_prediction': prediction[0]})
     
     except Exception as e:
+        print(f"Error in predict_fertilizer: {str(e)}")  # Log the error
         return jsonify({'error': str(e)}), 500
 
 @app.route('/predict/irrigation', methods=['POST'])
@@ -464,6 +480,8 @@ def predict_irrigation():
         # Make prediction
         prediction = model.predict(new_data_scaled)
         prediction_result = 'Yes' if prediction[0] == 1 else 'No'
+
+        
 
         return jsonify({'prediction': prediction_result})
 
@@ -561,6 +579,26 @@ async def get_irrigation_response(prompt):
                 return response_json['choices'][0]['message']['content']
             else:
                 return None
+            
+async def get_ntp_response(prompt):
+    headers = {
+        'Content-Type': 'application/json',
+        'api-key': api_keyy,
+    }
+    data = {
+        "model": "aasare-new",
+        "messages": [
+            {"role": "system", "content": "You are an expert in nutrient level of plant in nitrogen,phosphorous and potassium contents strategies."},
+            {"role": "user", "content": prompt},
+        ]
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post(f"{azure_endpointt}openai/deployments/aasare-35/chat/completions?api-version={api_versionn}", headers=headers, json=data) as response:
+            if response.status == 200:
+                response_json = await response.json()
+                return response_json['choices'][0]['message']['content']
+            else:
+                return None
 
 def run_async(func, *args):
     return asyncio.run(func(*args))
@@ -578,7 +616,6 @@ def suggest_irrigation():
     print("Irrigation Output:", irrigation_output)
     print("Water Output:", water_output)
     # Combine inputs and outputs into a prompt
-    
     
     prompt = f"""
     Given the following parameters:
@@ -602,6 +639,42 @@ def suggest_irrigation():
         return jsonify({"suggestion": response})
     else:
         return jsonify({"suggestion": "Unable to generate irrigation suggestion."})
+
+@app.route('/suggest/ntp', methods=['POST'])
+def suggest_ntp():
+    # Get the input data and output data from the request
+    data = request.json
+    input_params = data.get("inputs")  # Extract the input parameters
+    ntp_output = data.get("ntp_output")  # Extract the output data (fertilizer prediction, for example)
+
+    print("Received data:", data)
+    print("Input parameters:", input_params)
+    print("NTP Output:", ntp_output)
+
+    # Generate the prompt using both input and output data
+    prompt = f"""
+    Given the following parameters:
+    - Temperature: {input_params['temperature']}
+    - Moisture Content: {input_params['moisture']}
+    - Nitrogen Content: {input_params['nitrogen']}
+    - Potassium Content: {input_params['potassium']}
+    - Phosphorous Content: {input_params['phosphorous']}
+    - Soil Type: {input_params['soilType']}
+    - Crop Type: {input_params['cropType']}
+    - Fertilizer Prediction: {ntp_output}
+
+    Suggest the best nutrient management strategy for the given crop and soil conditions.
+    """
+    print("Generated prompt:", prompt)
+
+    # Call the async function to get the response (this should be implemented elsewhere)
+    response = run_async(get_ntp_response, prompt)
+    print("Response:", response)
+
+    if response:
+        return jsonify({"suggestion": response})  # Return the suggestion to the frontend
+    else:
+        return jsonify({"suggestion": "Unable to generate NTP suggestion."})
 
 
 @app.route('/register', methods=['POST'])

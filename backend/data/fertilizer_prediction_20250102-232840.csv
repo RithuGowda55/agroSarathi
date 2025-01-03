@@ -1,0 +1,3 @@
+temperature,moisture,nitrogen,potassium,phosphorous,soilType,cropType,predicted_fertilizer
+26,35,16,5,23,black,corn,14-35-14
+26,35,16,5,23,black,corn,14-35-14

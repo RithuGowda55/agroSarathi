@@ -5,10 +5,13 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 import { AuthProvider } from './AuthContext';
+import { LanguageProvider } from "../src/components/LanguageContext";
 
 ReactDOM.render(
     <AuthProvider>
-        <App />
+        <LanguageProvider>
+            <App />
+        </LanguageProvider>
     </AuthProvider>,
     document.getElementById('root')
 );
