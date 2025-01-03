@@ -1,13 +1,20 @@
-// Dashboard.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext'; // Imort the AuthContext
 import '../css/Dashboard.css'; // Import the styles
 import Back from './Back';
 
 const Dashboard = () => {
+  const { auth } = useAuth(); // Access auth state from context
+
+  // If not authenticated, redirect to login page
+  if (!auth.isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
-      <Back title='Explore' />
+      <Back title="Explore" />
       <div className="dashboard">
         <div className="cards-container">
           <div className="cardd">

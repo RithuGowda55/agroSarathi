@@ -380,6 +380,7 @@ def process_data():
     logging.info(f"Final Result: {result}")
     return jsonify(result)
 
+
 @app.route('/predict-fertilizer', methods=['POST'])
 def predict_fertilizer():
     try:

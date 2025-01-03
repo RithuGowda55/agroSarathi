@@ -1,7 +1,7 @@
 /* Register Page Styles */
 .registerbody {
-    background-image: url('../css/WhatsApp\ Image\ 2024-06-28\ at\ 21.54.32_9e69e098.jpg');
-    background-size: contain; /* Ensures the entire image is visible */
+    background-image: url('../css/b1.jpg');
+    background-size: fill; /* Ensures the entire image is visible */
     background-position: center; /* Moves the image to the center */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     min-height: 100vh; /* Ensures the background covers the full viewport height */

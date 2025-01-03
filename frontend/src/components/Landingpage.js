@@ -14,6 +14,9 @@ function Home() {
                     <a href="/register" className="reg">
                         <button className="button-35" role="button">Sign Up</button>
                     </a>
+                    <a href="/dashboard" className="reg">
+                        <button className="button-35" role="button">Home</button>
+                    </a>
                 </div>
             </nav>
             <div className="home-content">

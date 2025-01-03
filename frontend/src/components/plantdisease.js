@@ -25,14 +25,12 @@ import {
   Button,
   CircularProgress,
 } from "@material-ui/core";
-// import cblogo from "./logo.jpg";
 import image from "../css/bg.png";
 import { DropzoneArea } from "material-ui-dropzone";
 import { common } from "@material-ui/core/colors";
 import Clear from "@material-ui/icons/Clear";
 import styled from 'styled-components';
 
-// const axios = require("axios").default;
 
 const BoxContainer = styled.div`
   display: flex;
@@ -91,6 +89,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     backgroundSize: "cover",
     height: "140vh",
+    display: "flex", // Use flexbox for layout
+    flexDirection: "column", // Stack elements vertically
+    justifyContent: "space-between", // Distribute space between the elements
     // marginTop: "80px",
   },
   imageCard: {
@@ -179,7 +180,6 @@ export const DiseaseDetector = () => {
   const [data, setData] = useState();
   const [image, setImage] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  // const [question, setQuestion] = useState("");
   const [response, setResponse] = useState("");
 
   let confidence = 0;
@@ -278,15 +278,6 @@ export const DiseaseDetector = () => {
     <>
     <Back title= 'Plant Disease Detection'/>
     <React.Fragment>
-      {/* <AppBar position="static" className={classes.appbar}>
-        <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Plant Disease Classification
-          </Typography>
-          <div className={classes.grow} />
-          <Avatar src={cblogo}></Avatar>
-        </Toolbar>
-      </AppBar> */}
       <Container
         maxWidth={false}
         className={classes.mainContainer}
@@ -373,20 +364,7 @@ export const DiseaseDetector = () => {
               )}
             </Card>
           </Grid>
-          <Grid item className={classes.buttonGrid}>
-            <ColorButton className={classes.clearButton} onClick={sendQuestion}>
-              Ask for pesticides
-            </ColorButton>
-          </Grid>
-          {/* {response && (
-            <ColorButton>
-              <>
-                {response.split(". ").map((sentence, index) => (
-                  <p key={index}>{sentence.trim()}.</p>
-                ))}
-              </>
-            </ColorButton>
-          )} */}
+          
 
 {response && (
   <div
@@ -394,6 +372,7 @@ export const DiseaseDetector = () => {
     style={{
       flex: 1, // Allow the content to take available space
       display: "flex",
+      flexDirection: "column", // Stack content vertically
       justifyContent: "center",
       alignItems: "center",
       margin: "20px",
@@ -444,45 +423,12 @@ export const DiseaseDetector = () => {
             </p>
           );
         })}
-      </div>
-    </div>
-  </div>
-)}
-
-
-          {/* Display OpenAI response */}
-      {/* {response && (
-        <ColorButton>
-        <div className="response-container">
-          <h4>OpenAI Response:</h4>
-          <div
-            className="response-content"
-            dangerouslySetInnerHTML={{ __html: response }} // Render raw HTML content
-            />
-        </div>
-            </ColorButton>
-      )} */}
-
-      {/* Display error message if an error occurred */}
-      {/* {error && (
         
-        <div className="error-message">
-          <p>{error}</p>
-        </div>
-      )} */}
-          {/* {response && (
-  <>
-   {response && (
-  <BoxContainer>
-    {response.split(". ").map((sentence, index) => (
-      <Box key={index}>
-        <p>{sentence.trim()}.</p>
-      </Box>
-    ))}
-  </BoxContainer>
-)}
-  </>
-)} */}
+        <Grid item className={classes.buttonGrid}>
+            <ColorButton className={classes.clearButton} onClick={sendQuestion}>
+              Ask for pesticides
+            </ColorButton>
+          </Grid>
           {data && (
             <Grid item className={classes.buttonGrid}>
               <ColorButton
@@ -498,6 +444,12 @@ export const DiseaseDetector = () => {
               </ColorButton>
             </Grid>
           )}
+      </div>
+    </div>
+  </div>
+)}
+
+          
 
 
         </Grid>

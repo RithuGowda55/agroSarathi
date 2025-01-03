@@ -3,9 +3,16 @@ import Back from "./Back"
 // import CoursesCard from "./CoursesCard"
 import "../css/courses.css";
 import { coursesCard } from "../dummydata";
+import { Link, Navigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext'; // Imort the AuthContext
 
 
 const CourseHome = () => {
+  const {auth} = useAuth();
+
+  if (!auth.isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
   return (
     <>
       <Back title='Explore Courses' />
