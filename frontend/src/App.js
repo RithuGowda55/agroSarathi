@@ -20,6 +20,7 @@ import { AuthProvider } from './AuthContext';
 import Purchases from "./components/Purchases";
 import { Cancel, Success, Store } from "./components/CartContext";
 import CourseHome from "./components/CourseHome";
+import Blog from "./components/Blogpage";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function MainContent() {
         <Route path="/" element={<Landingpage />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Blog />} />
         <Route path="/register" element={<Register />} />
         <Route path="/courses" element={<CourseHome />} />
         <Route path="/about" element={<About />} />
