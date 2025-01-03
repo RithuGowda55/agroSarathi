@@ -25,6 +25,11 @@ from io import BytesIO
 from PIL import Image
 import tensorflow as tf
 
+############################################stripe########################
+import stripe
+stripe.api_key = 'sk_test_51QbijzRosPL8EM1RrJkCzTGFN3PJ46QPeMFB68Lo8AVRAx8mYCGCIEqK93X2wfLu3D5Vu10AaJJFAZkRKkkAUcpU007oyV1OaK'
+
+
 
 # from labor_management.routes.labor_profile_routes import labor_profile_bp
 
@@ -825,6 +830,36 @@ def get_response():
         print(f"Unexpected error: {str(e)}")
         return make_response(jsonify({"error": f"Unexpected error: {str(e)}"}), 500)
 
+################################################strip route#######################################
+@app.route('/checkout', methods=['POST'])
+def checkout():
+    try:
+        # Retrieve items from the request body
+        data = request.get_json()
+        items = data.get('items', [])
+
+        # Convert items to the format required by Stripe
+        line_items = [
+            {
+                'price': item['id'],
+                'quantity': item['quantity']
+            }
+            for item in items
+        ]
+
+        # Create a Stripe checkout session
+        session = stripe.checkout.Session.create(
+            line_items=line_items,
+            mode='payment',
+            success_url='http://localhost:3000/success',
+            cancel_url='http://localhost:3000/cancel'
+        )
+
+        # Return the session URL
+        return jsonify({'url': session.url})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
  
 

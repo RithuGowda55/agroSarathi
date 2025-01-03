@@ -186,7 +186,7 @@ const CropInputForm = () => {
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             textAlign: 'center',
             width: '80%',
-            maxWidth: '400px',
+            maxWidth: '1200px',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
