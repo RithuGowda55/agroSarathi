@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import './Filters.css'; // Import the CSS file
+import '../css/Filters.css'; // Import the CSS file
 
 const FilterDropdown = ({ label, options, value, onChange }) => {
   const formattedOptions = options.map(option => ({

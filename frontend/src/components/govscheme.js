@@ -3,7 +3,7 @@ import { Tables } from "./table";
 import { Paginations } from "./pagination";
 import { Searchs } from "./searches";
 import { Sorts } from "./sort";
-import { Filters } from "../css/genre";
+import { Filters } from "./genre";
 import AskOpenAI from "./AskOpenAI"; // Import the AskOpenAI component
 import "../css/govscheme.css";
 import Back from "./Back";
