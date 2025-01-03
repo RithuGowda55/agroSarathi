@@ -28,7 +28,7 @@ const Header = () => {
         <nav className='flexSB'>
           <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
             <li>
-              <Link to='/'>Home</Link>
+              <Link to='/dashboard'>Home</Link>
             </li>
             <li>
               <Link to='/courses'>Resources</Link>
@@ -43,10 +43,9 @@ const Header = () => {
               <Link to='/purchases'>Purchases</Link>
             </li>
             <li>
+                   
               <Link to='/home'>Blog</Link>
-            </li>
-            <li>
-              <Link to='/govscheme'>GovScheme</Link>
+ <Link to='/govscheme'>GovScheme</Link>
             </li>
             <li>
               <Link to='/costpredict'>CostPredict</Link>
@@ -67,8 +66,15 @@ const Header = () => {
               <Link to='/blogpost'>BlogPost</Link>
             </li> */}
           </ul>
-          <div className='start'>
-            <div className='button'>Sustainable Farming</div>
+          <div className="start">
+            <div className="button">
+              <img
+                src={require('../css/logo.png')} 
+                alt="Project Logo"
+                className="projectLogo"
+                style={{width:"99px" ,height:"55px"}}
+              />
+            </div>
           </div>
           <button className='toggle' onClick={() => setClick(!click)}>
             {click ? <i className='fa fa-times'> </i> : <i className='fa fa-bars'></i>}

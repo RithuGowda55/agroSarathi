@@ -19,6 +19,7 @@ import Register from "./components/Register";
 import { AuthProvider } from './AuthContext';
 import Purchases from "./components/Purchases";
 import { Cancel, Success, Store } from "./components/CartContext";
+import CourseHome from "./components/CourseHome";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function MainContent() {
         <Route path="/dashboard" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/courses" element={<CourseHome />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/govscheme" element={<Govscheme />} />

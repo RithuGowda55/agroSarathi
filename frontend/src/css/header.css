@@ -35,7 +35,7 @@ header ul li a:hover {
 }
 .start {
   background-color: #1eb2a6;
-  padding: 30px 70px;
+  padding: 13px 31px;
   color: #fff;
   clip-path: polygon(10% 0%, 100% 0, 100% 100%, 0% 100%);
 }
