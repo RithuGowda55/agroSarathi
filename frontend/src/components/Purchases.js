@@ -26,8 +26,10 @@ function Purchases() {
       <Back title="Subscription Plans" />
 
       <CartProvider>
-        <Container>
-          <NavbarComponent></NavbarComponent>
+        {/* <Container> */}
+          <NavbarComponent />
+
+          {/* </NavbarComponent> */}
           <Store />
           {/* <BrowserRouter>
             <Routes>
@@ -36,7 +38,7 @@ function Purchases() {
               <Route path="cancel" element={<Cancel />} />
             </Routes>
           </BrowserRouter> */}
-        </Container>
+        {/* </Container> */}
       </CartProvider>
     </>
   );

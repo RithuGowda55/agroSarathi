@@ -12,6 +12,7 @@
     "@mui/styles": "^6.3.0",
     "assert": "^2.1.0",
     "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
     "browserify-zlib": "^0.2.0",
     "cors": "^2.8.5",
     "cra-template": "1.2.0",
