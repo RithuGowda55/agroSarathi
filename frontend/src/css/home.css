@@ -14,7 +14,7 @@
 }
 
 .logo {
-    border-radius: 50%;
+    border-radius: 5%;
     height: 50px; /* Adjust size as needed */
     width: auto;
 }

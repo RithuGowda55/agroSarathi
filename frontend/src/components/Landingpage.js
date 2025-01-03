@@ -1,12 +1,12 @@
 import React from "react";
 import "../css/home.css";
-// import logo from "../assets/images/Aasarelogo.jpg"; // Correctly import the image
+import logo from "../css/logo.png"; // Correctly import the image
 
 function Home() {
     return (
         <div className="home-container">
             <nav className="navbar">
-                {/* <img src={logo} alt="Logo" className="logo" /> */}
+                <img src={logo} alt="Logo" className="logo" />
                 <div className="button-container">
                     <a href="/login" className="log">
                         <button className="button-35" role="button">Sign In</button>

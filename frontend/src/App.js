@@ -35,7 +35,7 @@ function MainContent() {
   const location = useLocation();
   
   // Define routes that don't require header and footer
-  const noHeaderFooterRoutes = ["/"];
+  const noHeaderFooterRoutes = ["/","/login","/register"]; 
 
   // Check if the current route is in the noHeaderFooterRoutes array
   const showHeaderFooter = !noHeaderFooterRoutes.includes(location.pathname);
