@@ -1,0 +1,65 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Laborer Dashboard</title>  
+    <!-- Add Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">  
+</head>  
+<body>  
+    <div class="container mt-4">  
+        <!-- Welcome Message -->  
+        <h1 class="text-center mb-4">Welcome, <span class="text-primary">{{ laborer['username'] }}</span>!</h1>  
+  
+        <!-- Manager Status Section -->  
+        <div class="card shadow mb-4">  
+            <div class="card-body">  
+                {% if accepted_request %}  
+                    <p class="mb-3">  
+                        You are currently working under: <strong>{{ accepted_request['manager'] }}</strong>.  
+                    </p>  
+                    <form method="POST" action="/leave-manager">  
+                        <button type="submit" class="btn btn-danger btn-sm">Leave Manager</button>  
+                    </form>  
+                {% elif pending_request %}  
+                    <p class="mb-0">  
+                        Your request to join <strong>{{ pending_request['manager'] }}</strong> is pending. Please wait for a response.  
+                    </p>  
+                {% else %}  
+                    <p class="mb-3">You are not working under any manager.</p>  
+                    <a href="/available-managers" class="btn btn-primary btn-sm">View Available Managers</a>  
+                {% endif %}  
+            </div>  
+        </div>  
+  
+        <!-- Laborer Actions Section -->  
+        <div class="card shadow mb-4">  
+            <div class="card-header bg-primary text-white">  
+                <h5 class="mb-0">Laborer Actions</h5>  
+            </div>  
+            <div class="card-body">  
+                <ul class="list-group">  
+                    <li class="list-group-item">  
+                        <a href="/laborer-tasks" class="text-decoration-none">View Your Assigned Tasks</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/laborer-attendance" class="text-decoration-none">View Your Attendance Records</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/laborer-payments" class="text-decoration-none">View Your Payment History</a>  
+                    </li>  
+                </ul>  
+            </div>  
+        </div>  
+  
+        <!-- Logout Button -->  
+        <div class="text-center mt-3">  
+            <a href="/logout" class="btn btn-secondary">Logout</a>  
+        </div>  
+    </div>  
+  
+    <!-- Add Bootstrap JavaScript -->  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>  
+</body>  
+</html>  

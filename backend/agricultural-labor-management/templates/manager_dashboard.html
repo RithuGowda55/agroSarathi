@@ -1,0 +1,59 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Manager Dashboard</title>  
+    <!-- Add Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">  
+</head>  
+<body>  
+    <div class="container mt-4">  
+        <!-- Welcome Message -->  
+        <h1 class="text-center mb-4">Welcome, <span class="text-primary">{{ session['username'] }}</span>!</h1>  
+  
+        <!-- Manager Actions Section -->  
+        <div class="card shadow mb-4">  
+            <div class="card-header bg-primary text-white">  
+                <h5 class="mb-0">Manager Actions</h5>  
+            </div>  
+            <div class="card-body">  
+                <ul class="list-group">  
+                    <li class="list-group-item">  
+                        <a href="/notifications" class="text-decoration-none">View Join Requests (Notifications)</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/view-laborers" class="text-decoration-none">View Laborers Working Under You</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/assign-task" class="text-decoration-none">Assign Task to Laborers</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/view-tasks" class="text-decoration-none">View All Tasks</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/record-attendance" class="text-decoration-none">Record Attendance</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/view-attendance" class="text-decoration-none">View Laborers' Attendance Records</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/record-payment" class="text-decoration-none">Record Payments for Laborers</a>  
+                    </li>  
+                    <li class="list-group-item">  
+                        <a href="/view-payments" class="text-decoration-none">View Payment History</a>  
+                    </li>  
+                </ul>  
+            </div>  
+        </div>  
+  
+        <!-- Logout Button -->  
+        <div class="text-center mt-3">  
+            <a href="/logout" class="btn btn-secondary">Logout</a>  
+        </div>  
+    </div>  
+  
+    <!-- Add Bootstrap JavaScript -->  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>  
+</body>  
+</html>  
