@@ -157,6 +157,9 @@ function PricePrediction() {
                         <div style={{ marginBottom: '10px' }}>
                             <strong>Avg Price: </strong><span>{prediction.Modal_Price} per Quintol</span>
                         </div>
+                        <div style={{ marginBottom: '10px' }}>
+                            <img src={prediction.graph} alt="Price Prediction Graph" />
+                        </div>
                     </div>
                     </>
                 )}

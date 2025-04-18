@@ -364,7 +364,26 @@ export const DiseaseDetector = () => {
               )}
             </Card>
           </Grid>
-          
+          <Grid item className={classes.buttonGrid}>
+            <ColorButton className={classes.clearButton} onClick={sendQuestion}>
+              Ask for pesticides
+            </ColorButton>
+          </Grid>
+          {data && (
+            <Grid item className={classes.buttonGrid}>
+              <ColorButton
+                variant="contained"
+                className={classes.clearButton}
+                color="primary"
+                component="span"
+                size="large"
+                onClick={clearData}
+                startIcon={<Clear fontSize="large" />}
+              >
+                Clear
+              </ColorButton>
+            </Grid>
+          )}
 
 {response && (
   <div
@@ -423,27 +442,6 @@ export const DiseaseDetector = () => {
             </p>
           );
         })}
-        
-        <Grid item className={classes.buttonGrid}>
-            <ColorButton className={classes.clearButton} onClick={sendQuestion}>
-              Ask for pesticides
-            </ColorButton>
-          </Grid>
-          {data && (
-            <Grid item className={classes.buttonGrid}>
-              <ColorButton
-                variant="contained"
-                className={classes.clearButton}
-                color="primary"
-                component="span"
-                size="large"
-                onClick={clearData}
-                startIcon={<Clear fontSize="large" />}
-              >
-                Clear
-              </ColorButton>
-            </Grid>
-          )}
       </div>
     </div>
   </div>

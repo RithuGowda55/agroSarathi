@@ -8,3 +8,10 @@ temperature,moisture,nitrogen,potassium,phosphorous,soilType,cropType,predicted_
 23,12,12,6,19,sandy,cotton,17-17-17
 23,12,12,6,19,sandy,cotton,17-17-17
 23,56,23,10,36,sandy,cotton,28-28
+32,80,26,12,32,loamy,corn,14-35-14
+26,85,12,6,26,black,cotton,14-35-14
+30,50,45,24,36,clayey,corn,Urea
+30,50,45,24,36,clayey,corn,Urea
+32,67,20,7,7,clayey,paddy,17-17-17
+32,67,20,7,7,clayey,paddy,17-17-17
+32,67,20,7,7,clayey,paddy,17-17-17

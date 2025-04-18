@@ -361,7 +361,7 @@ function Store() {
 function Success() {
   return (
     <>
-    <Back title='Payment Sucessfull' />
+    <Back title='Payment Successful' />
     <h1>Thank you for your purchase!</h1>
     </>
   );

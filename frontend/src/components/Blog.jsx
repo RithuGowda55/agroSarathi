@@ -317,33 +317,33 @@ function Sidebar() {
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
           <li className="sidebarListItem">
-            <Link className="link" to="/posts?cat=SustainableFarming">
-              Sustainable Farming
+            <Link className="link" to="/explore">
+              Fertiliser Prediction
             </Link>
           </li>
           <li className="sidebarListItem">
-            <Link className="link" to="/posts?cat=AgriTech">
-              AgriTech
+            <Link className="link" to="/explore">
+              Irrigation
             </Link>
           </li>
           <li className="sidebarListItem">
-            <Link className="link" to="/posts?cat=OrganicFarming">
-              Organic Farming
+            <Link className="link" to="/explore">
+              Price Prediction
             </Link>
           </li>
           <li className="sidebarListItem">
-            <Link className="link" to="/posts?cat=CropManagement">
-              Crop Management
+            <Link className="link" to="/govscheme">
+              Govt Scheme
             </Link>
           </li>
           <li className="sidebarListItem">
-            <Link className="link" to="/posts?cat=PrecisionAgriculture">
-              Precision Agriculture
+            <Link className="link" to="/courses">
+              Resources
             </Link>
           </li>
           <li className="sidebarListItem">
-            <Link className="link" to="/posts?cat=Hydroponics">
-              Hydroponics
+            <Link className="link" to="/crop">
+              Crop Suggestion
             </Link>
           </li>
         </ul>

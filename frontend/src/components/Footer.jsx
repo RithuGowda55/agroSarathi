@@ -113,15 +113,15 @@ const Footer = () => {
             <ul>
               <li>
                 <i className="fa fa-map"></i>
-                203 Agro Sarathi St. Farming District, Rural, India
+                Team AgroSarathi, CSE Dept, The National Institute of Engineering, Mysore - 08.
               </li>
               <li>
                 <i className="fa fa-phone-alt"></i>
-                +91 123 456 7890
+                +91 8277261961
               </li>
               <li>
                 <i className="fa fa-paper-plane"></i>
-                support@agrosarathi.com
+                2021cs_dineshs_a@nie.ac.in
               </li>
             </ul>
           </div>

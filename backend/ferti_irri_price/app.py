@@ -16,6 +16,10 @@ import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import logging
 from bson import ObjectId 
+import matplotlib.pyplot as plt
+import io
+import base64
+
 
 
 
@@ -49,19 +53,19 @@ CORS(app, supports_credentials=True)
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 api_keyy = os.getenv("api_key")
-azure_endpointt = "https://aasare-new.openai.azure.com/"
-api_versionn = "2024-02-15-preview"
+azure_endpointt = "https://unicamp-ai-project.openai.azure.com/openai/deployments/gpt-4o/chat/completions"
+api_versionn = "2025-01-01-preview"
 
 
 ################################################crop suggestion###########################################################
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-azure_api_key = os.getenv("AZURE_API_KEY")
+azure_api_key = "885f8caf9ccc4112a9c84953499dedf4"
 
-azure_endpoint = "https://aasare.openai.azure.com/openai/deployments/gpt-4o/chat/completions"
-api_version = "2024-08-01-preview"
+azure_endpoint = "https://unicamp-ai-project.openai.azure.com/openai/deployments/gpt-4o/chat/completions"
+api_version = "2025-01-01-preview"
 
-agro_api_key = "1a2e75d6964345653c6ca5b1fecf7799"
+agro_api_key = "f200300e216131925fd66ece67220f49"
 
 
 
@@ -280,6 +284,7 @@ def generate_crop_suggestions(weather_data, soil_data, region):
             }
         )
         response_data = response.json()
+        print(response_data)
         logging.info(f"Azure OpenAI Crop Suggestions Response: {response_data}")
         if 'choices' in response_data and response_data['choices']:
             return response_data['choices'][0]['message']['content'].strip()
@@ -379,7 +384,6 @@ def process_data():
 
     logging.info(f"Final Result: {result}")
     return jsonify(result)
-
 
 @app.route('/predict-fertilizer', methods=['POST'])
 def predict_fertilizer():
@@ -559,7 +563,7 @@ def predict():
     model_columns = joblib.load('./models/price_model_columns.pkl')
     # Get data from the request
     data = request.json
-    
+     
     # Convert the incoming data into a DataFrame for consistent structure
     df = pd.DataFrame([data])
 
@@ -590,6 +594,26 @@ def predict():
     else:
         feedback_df.to_csv(feedback_file, mode='a', index=False, header=False) 
 
+    prices = ['Min_Price', 'Max_Price', 'Modal_Price']
+    values = [result['Min_Price'], result['Max_Price'], result['Modal_Price']]
+    plt.figure(figsize=(6, 4))
+    plt.bar(prices, values, color=['blue', 'green', 'orange'])
+    plt.title('Predicted Prices')
+    plt.ylabel('Price')
+    plt.tight_layout()
+
+    # Save plot to a BytesIO object
+    img_io = io.BytesIO()
+    plt.savefig(img_io, format='png')
+    img_io.seek(0)
+    base64_img = base64.b64encode(img_io.getvalue()).decode()
+
+    # Close the plot to free memory
+    plt.close()
+
+    # Include base64 image in response
+    result['graph'] = f'data:image/png;base64,{base64_img}'
+
     return jsonify(result)
 
 async def get_irrigation_response(prompt):
@@ -605,7 +629,7 @@ async def get_irrigation_response(prompt):
         ]
     }
     async with aiohttp.ClientSession() as session:
-        async with session.post(f"{azure_endpointt}openai/deployments/aasare-35/chat/completions?api-version={api_versionn}", headers=headers, json=data) as response:
+        async with session.post(f"{azure_endpoint}?api-version={api_version}", headers=headers, json=data) as response:
             if response.status == 200:
                 response_json = await response.json()
                 return response_json['choices'][0]['message']['content']
@@ -625,7 +649,7 @@ async def get_ntp_response(prompt):
         ]
     }
     async with aiohttp.ClientSession() as session:
-        async with session.post(f"{azure_endpointt}openai/deployments/aasare-35/chat/completions?api-version={api_versionn}", headers=headers, json=data) as response:
+        async with session.post(f"{azure_endpoint}?api-version={api_version}", headers=headers, json=data) as response:
             if response.status == 200:
                 response_json = await response.json()
                 return response_json['choices'][0]['message']['content']
@@ -791,6 +815,7 @@ def predictt():
     if 'file' not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
     file = request.files['file']
+    print("file",request.files.get('file'))
     image = read_file_as_image(file.read())
     img_batch = np.expand_dims(image, 0)
 
@@ -827,7 +852,7 @@ def get_response():
 
     try:
         response = requests.post(
-            f"{aep}/openai/deployments/aasare-35/chat/completions?api-version=2024-02-15-preview",
+            f"{azure_endpoint}?api-version={api_version}",
             json=payload,
             headers={
                 "Content-Type": "application/json",
